@@ -3,13 +3,16 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>vConsole/Demo1</title>
+	<title>vConsole/Demo</title>
 	<link href="./lib/weui.min.css" rel="stylesheet"/>
 	<link href="./lib/demo.css" rel="stylesheet"/>
 </head>
 <body ontouchstart>
 	<div class="page">
-		<h1 class="page_title">Demo 1</h1>
+		<h1 class="page_title">vConsole</h1>
+		<div class="weui_text_area">
+			<p class="weui_msg_desc">点击下面的按钮，即可打印 log。<br/>点击右下角按钮，即可查看 log。</p>
+		</div>
 		<a href="javascript:;" class="weui_btn weui_btn_primary js_btn_log" data-type="log">普通日志(log)</a>
 		<a href="javascript:;" class="weui_btn weui_btn_primary js_btn_log" data-type="info">信息日志(info)</a>
 		<a href="javascript:;" class="weui_btn weui_btn_primary js_btn_log" data-type="debug">调试日志(debug)</a>
@@ -17,6 +20,10 @@
 		<a href="javascript:;" class="weui_btn weui_btn_primary js_btn_log" data-type="error">报错日志(error)</a>
 
 		<a href="javascript:;" class="weui_btn weui_btn_default js_btn_log_obj">打印Object</a>
+
+		<div class="weui_extra_area">
+			<a href="https://github.com/WechatFE/vConsole">查看详情</a>
+		</div>
 	</div>
 	<div class="weui_toptips weui_notice" id="js_tips">已打印log</div>
 </body>

@@ -18,3 +18,22 @@ html, body {
 .weui_toptips.weui_notice {
 	background-color: #FFBE00;
 }
+
+.weui_text_area {
+	margin: 15px 0 25px;
+	padding: 0 20px;
+	text-align: center;
+}
+.weui_msg_desc {
+	font-size: 14px;
+	color: #888;
+}
+
+.weui_extra_area {
+	margin-bottom: 15px;
+	font-size: 14px;
+	color: #888;
+}
+.weui_extra_area a {
+	color: #61749B;
+}
