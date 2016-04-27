@@ -1,0 +1,20 @@
+html, body {
+	height: 100%;
+}
+.page {
+	padding: 25px 15px 0;
+	height: 100%;
+	background-color: #fbf9fe;
+	-webkit-tap-highlight-color: transparent;
+}
+.page_title {
+	color: #225fba;
+	text-align: center;
+	font-size: 34px;
+	font-weight: 400;
+	margin: 0 15%;
+}
+
+.weui_toptips.weui_notice {
+	background-color: #FFBE00;
+}
