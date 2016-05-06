@@ -2,7 +2,7 @@ html, body {
 	height: 100%;
 }
 .page {
-	padding: 25px 15px 0;
+	padding: 25px 15px 60px;
 	height: 100%;
 	background-color: #fbf9fe;
 	-webkit-tap-highlight-color: transparent;
@@ -17,6 +17,16 @@ html, body {
 
 .weui_toptips.weui_notice {
 	background-color: #FFBE00;
+}
+
+.footer {
+	margin: 15px 0 25px;
+	padding: 0 20px;
+	text-align: center;
+	font-size: 14px;
+}
+.footer a {
+	color: #61749B;
 }
 
 .weui_text_area {

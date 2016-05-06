@@ -5,13 +5,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>vConsole/Demo</title>
 	<link href="./lib/weui.min.css" rel="stylesheet"/>
-	<link href="./lib/demo.css" rel="stylesheet"/>
+	<link href="./lib/demo.css?v=1.1.0" rel="stylesheet"/>
 
 	<script src="./lib/zepto.min.js"></script>
 	<script src="./lib/zepto.touch.min.js"></script>
 
 	<!-- 引入vConsole的JS库 -->
-	<script src="./lib/vconsole.min.js"></script>
+	<script src="./lib/vconsole.min.js?v=1.1.0"></script>
 </head>
 <body ontouchstart>
 	<div class="page">
@@ -26,8 +26,10 @@
 		<a href="javascript:;" class="weui_btn weui_btn_primary js_btn_log" data-type="error">报错日志(error)</a>
 
 		<a href="javascript:;" class="weui_btn weui_btn_default js_btn_log_obj">打印Object</a>
+		<a href="javascript:;" class="weui_btn weui_btn_default js_btn_trigger_error">触发JS Error</a>
+		<a href="javascript:;" class="weui_btn weui_btn_default js_btn_log_sys">打印到系统面板</a>
 
-		<div class="weui_extra_area">
+		<div class="footer">
 			<a href="https://github.com/WechatFE/vConsole">查看详情</a>
 		</div>
 	</div>
@@ -50,6 +52,16 @@ $('.js_btn_log_obj').on('tap', function(e) {
 		'foo': 'bar',
 		'tips': 'JS对象会转为JSON字符串输出'
 	});
+	showTips();
+});
+$('.js_btn_trigger_error').on('tap', function(e) {
+	showTips();
+	var err = undefined;
+	err.a = 1;
+});
+$('.js_btn_log_sys').on('tap', function(e) {
+	// 输出到系统面板
+	console.log('[system]', '当前时间戳:', (+new Date()));
 	showTips();
 });
 
