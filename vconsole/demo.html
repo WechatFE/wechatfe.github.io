@@ -11,7 +11,7 @@
 	<script src="./lib/zepto.touch.min.js"></script>
 
 	<!-- 引入vConsole的JS库 -->
-	<script src="./lib/vconsole.min.js?v=1.3.0"></script>
+	<script src="./lib/vconsole.min.js?v=2.0.0"></script>
 </head>
 <body ontouchstart>
 	<div class="page">
@@ -47,8 +47,14 @@ $('.js_btn_log').on('tap', function(e) {
 });
 $('.js_btn_log_obj').on('tap', function(e) {
 	console.log({
-		'foo': 'bar',
-		'tips': 'JS对象会转为JSON字符串输出'
+		string: 'foobar',
+		number: 233,
+		boolean: true,
+		object: {
+			foo: 'bar'
+		},
+		array: [8, 7, 6],
+		func: function() {}
 	});
 	showTips();
 });
