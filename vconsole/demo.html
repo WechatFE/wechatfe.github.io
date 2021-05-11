@@ -34,7 +34,6 @@
     <div class="line"></div>
 
     <a href="javascript:;" class="weui_btn weui_btn_default js_btn_changeTheme">切换主题样式</a>
-    <a href="javascript:;" class="weui_btn weui_btn_default js_btn_clear">清除日志</a>
     <a href="javascript:;" class="weui_btn weui_btn_warn js_btn_hideswitch">隐藏按钮</a>
     <a href="javascript:;" class="weui_btn weui_btn_warn js_btn_destroy">销毁vConsole</a>
 
@@ -97,14 +96,14 @@ const Ajax = (method, url, data, callback) => {
     callback(xhr.response);
   };
   xhr.onerror = () => {
-    vConsole.log('XHR Error');
+    console.log('XHR Error');
   };
 };
 
 DOMs('.js_btn_log').forEach(($elm) => {
   BindTap($elm, (e) => {
     const type = e.target.dataset.type;
-    vConsole[type](type); // 例如，console.log(type)
+    console[type](type); // 例如，console.log(type)
     showTips();
   });
 });
@@ -115,7 +114,7 @@ BindTap('.js_btn_log_obj', (e) => {
     'arr': [9, 8, 7],
     'tips': 'JS对象可以折叠展示'
   };
-  vConsole.log(obj);
+  console.log(obj);
   showTips();
 });
 BindTap('.js_btn_trigger_error', (e) => {
@@ -125,30 +124,27 @@ BindTap('.js_btn_trigger_error', (e) => {
 });
 BindTap('.js_btn_log_sys', (e) => {
   // 输出到系统面板
-  vConsole.log('[system]', '当前时间戳:', (+new Date()));
+  console.log('[system]', '当前时间戳:', (+new Date()));
   showTips();
 });
 BindTap('.js_btn_ajax_get', (e) => {
   // 发起一个AJAX
   Ajax('GET', 'ajax.json',  { id: Math.ceil(Math.random() * 10000), action: 'Get' }, (resp) => {
-    vConsole.log(resp);
+    console.log(resp);
   });
   showTips();
 });
 BindTap('.js_btn_ajax_post', (e) => {
   // 发起一个AJAX
   Ajax('POST', 'ajax.json',  { id: Math.ceil(Math.random() * 10000), action: 'Post' }, (resp) => {
-    vConsole.log(resp);
+    console.log(resp);
   });
   showTips();
 });
 let theme = 'light';
 BindTap('.js_btn_changeTheme', (e) => {
   theme = theme === 'light' ? 'dark' : 'light';
-  vConsole.setOption('theme', theme);
-});
-BindTap('.js_btn_clear', (e) => {
-  vConsole.clear();
+  window.vConsole.setOption('theme', theme);
 });
 BindTap('.js_btn_hideswitch', (e) => {
   const $elm = e.target;
