@@ -66,11 +66,7 @@ const loadVConsole = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const v = urlParams.get('v') || latestVersion;
   const script = document.createElement('SCRIPT');
-  if (v === 'dev') {
-    script.src = 'https://raw.githubusercontent.com/Tencent/vConsole/dev/dist/vconsole.min.js?r=' + Math.random();
-  } else {
-    script.src = `../lib/vconsole/${v}/vconsole.min.js`;
-  }
+  script.src = `../lib/vconsole/${v}/vconsole.min.js`;
   script.onload = initVConsole;
   document.body.append(script);
   document.querySelector('.js_txt_version').innerHTML = 'vConsole版本: ' + v;
