@@ -6,9 +6,6 @@
   <title>vConsole/Demo</title>
   <link href="./lib/weui.min.css" rel="stylesheet"/>
   <link href="./lib/demo.css?v=1.2.0" rel="stylesheet"/>
-
-  <script>const latestVersion = '3.9.0';</script>
-
 </head>
 <body ontouchstart>
   <div class="page">
@@ -63,9 +60,9 @@ const initVConsole = () => {
 // 引入vConsole的JS库
 const loadVConsole = () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const v = urlParams.get('v') || latestVersion;
+  const v = urlParams.get('v') || 'latest';
   const script = document.createElement('SCRIPT');
-  script.src = `../lib/vconsole/${v}/vconsole.min.js`;
+  script.src = `https://unpkg.com/vconsole@${v}/dist/vconsole.min.js`;
   script.onload = initVConsole;
   document.body.append(script);
   document.querySelector('.js_txt_version').innerHTML = 'vConsole版本: ' + v;
