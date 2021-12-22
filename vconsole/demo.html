@@ -5,39 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>vConsole/Demo</title>
   <link href="./lib/weui.min.css" rel="stylesheet"/>
-  <link href="./lib/demo.css?v=1.2.0" rel="stylesheet"/>
+  <link href="./lib/demo.css?v=1.3.0" rel="stylesheet"/>
 </head>
 <body ontouchstart>
   <div class="page">
     <h1 class="page_title">vConsole Demo</h1>
     <div class="weui_text_area">
-      <p class="weui_msg_desc">点击下面的按钮，即可打印 log。<br/>点击右下角按钮，即可查看 log。</p>
+      <p class="weui_msg_desc">Click the lower right corner button to get start.<br/>点击右下角按钮，即可打开 vConsole。</p>
     </div>
-    <a href="javascript:;" class="weui_btn weui_btn_primary js_btn_log" data-type="log">普通日志(log)</a>
-    <a href="javascript:;" class="weui_btn weui_btn_primary js_btn_log" data-type="info">信息日志(info)</a>
-    <a href="javascript:;" class="weui_btn weui_btn_primary js_btn_log" data-type="debug">调试日志(debug)</a>
-    <a href="javascript:;" class="weui_btn weui_btn_primary js_btn_log" data-type="warn">警告日志(warn)</a>
-    <a href="javascript:;" class="weui_btn weui_btn_primary js_btn_log" data-type="error">报错日志(error)</a>
+    
+
+    <div class="section">
+      <div class="hd">Log 日志</div>
+
+      <a onclick="logTypes()" href="javascript:;" class="weui_btn weui_btn_default">Log/Info/Debug/Warn/Error</a>
+      <a onclick="normalObject()" href="javascript:;" class="weui_btn weui_btn_default">Output Object</a>
+      <a onclick="allDataTypes()" href="javascript:;" class="weui_btn weui_btn_default">All Data Types</a>
+      <a onclick="windowError()" href="javascript:;" class="weui_btn weui_btn_default">window.error</a>
+    </div>
 
     <div class="line"></div>
 
-    <a href="javascript:;" class="weui_btn weui_btn_default js_btn_log_obj">打印Object</a>
-    <a href="javascript:;" class="weui_btn weui_btn_default js_btn_trigger_error">触发JS Error</a>
-    <a href="javascript:;" class="weui_btn weui_btn_default js_btn_log_sys">打印到系统面板</a>
-    <a href="javascript:;" class="weui_btn weui_btn_default js_btn_ajax_get">发起GET Request</a>
-    <a href="javascript:;" class="weui_btn weui_btn_default js_btn_ajax_post">发起POST Request</a>
+    <div class="section">
+      <div class="hd">Network 网络</div>
+
+      <a onclick="getAjax()" href="javascript:;" class="weui_btn weui_btn_default">XMLHttpRequest: GET</a>
+      <a onclick="optionsXHR()" href="javascript:;" class="weui_btn weui_btn_default">XMLHttpRequest: OPTIONS</a>
+      <a onclick="postFetch()" href="javascript:;" class="weui_btn weui_btn_default">Fetch: POST</a>
+      <a onclick="sendBeacon()" href="javascript:;" class="weui_btn weui_btn_default">sendBeacon</a>
+    </div>
+    
 
     <div class="line"></div>
 
-    <a href="javascript:;" class="weui_btn weui_btn_default js_btn_changeTheme">切换主题样式</a>
-    <a href="javascript:;" class="weui_btn weui_btn_warn js_btn_hideswitch">隐藏按钮</a>
-    <a href="javascript:;" class="weui_btn weui_btn_warn js_btn_destroy">销毁vConsole</a>
+    <div class="section">
+      <div class="hd">Common 通用能力</div>
+
+      <a onclick="changeTheme('dark')" href="javascript:;" class="weui_btn weui_btn_default">Theme: dark</a>
+      <a onclick="changeTheme('light')" href="javascript:;" class="weui_btn weui_btn_default">Theme: light</a>
+      <a onclick="changeTheme('')" href="javascript:;" class="weui_btn weui_btn_default">Theme: auto</a>
+      <a onclick="toggleVConsole()" href="javascript:;" class="weui_btn weui_btn_default">vConsole: show/hide</a>
+      <a onclick="toggleSwitch()" href="javascript:;" class="weui_btn weui_btn_default">Switch: show/hide</a>
+      <a onclick="switchPosition()" href="javascript:;" class="weui_btn weui_btn_default">Switch: setPosition</a>
+      <a onclick="destroy()" id="btn_destroy" href="javascript:;" class="weui_btn weui_btn_warn">Destroy</a>
+    </div>
+    
 
     <div class="weui-footer">
-      <p class="weui-footer__text js_txt_version"></p>
+      <p class="weui-footer__text">vConsole Version: <span id="js_txt_version"></span></p>
     </div>
   </div>
-  <div class="weui_toptips weui_notice" id="js_tips">已打印log</div>
+  <div class="weui_toptips weui_notice" id="js_tips">Done</div>
 </body>
 
 <script>
@@ -48,13 +66,14 @@ const initVConsole = () => {
     maxLogNumber: 1000,
     // disableLogScrolling: true,
     onReady: () => {
-      console.log('vConsole is ready.');
+      console.log('vConsole: onReady');
     },
     onClearLog: () => {
-      console.log('on clearLog');
+      console.log('vConsole: onClearLog');
     }
   });
   console.info('欢迎使用 vConsole。vConsole 是一个由微信前端团队研发的 Web 前端开发者面板，可用于展示 console 日志，方便开发、调试。');
+  document.querySelector('#js_txt_version').innerHTML = window.vConsole.version;
 };
 
 // 引入vConsole的JS库
@@ -65,7 +84,7 @@ const loadVConsole = () => {
   script.src = `https://unpkg.com/vconsole@${v}/dist/vconsole.min.js`;
   script.onload = initVConsole;
   document.body.append(script);
-  document.querySelector('.js_txt_version').innerHTML = 'vConsole版本: ' + v;
+  document.querySelector('#js_txt_version').innerHTML = v;
 };
 loadVConsole();
 
@@ -96,85 +115,6 @@ const Ajax = (method, url, data, callback) => {
   };
 };
 
-DOMs('.js_btn_log').forEach(($elm) => {
-  BindTap($elm, (e) => {
-    const type = e.target.dataset.type;
-    console[type](type); // 例如，console.log(type)
-    showTips();
-  });
-});
-BindTap('.js_btn_log_obj', (e) => {
-  const obj = {
-    'foo': 'bar',
-    'obj': {'bool': true},
-    'arr': [9, 8, 7],
-    'tips': 'JS对象可以折叠展示'
-  };
-  console.log(obj);
-  showTips();
-});
-BindTap('.js_btn_trigger_error', (e) => {
-  showTips();
-  const err = undefined;
-  err.a = 1;
-});
-BindTap('.js_btn_log_sys', (e) => {
-  // 输出到系统面板
-  console.log('[system]', '当前时间戳:', (+new Date()));
-  showTips();
-});
-BindTap('.js_btn_ajax_get', (e) => {
-  // 发起一个AJAX
-  Ajax('GET', 'ajax.json',  { id: Math.ceil(Math.random() * 10000), action: 'Get' }, (resp) => {
-    console.log(resp);
-  });
-  showTips();
-});
-BindTap('.js_btn_ajax_post', (e) => {
-  // 发起一个AJAX
-  Ajax('POST', 'ajax.json',  { id: Math.ceil(Math.random() * 10000), action: 'Post' }, (resp) => {
-    console.log(resp);
-  });
-  showTips();
-});
-let theme = 'light';
-BindTap('.js_btn_changeTheme', (e) => {
-  theme = theme === 'light' ? 'dark' : 'light';
-  window.vConsole.setOption('theme', theme);
-});
-BindTap('.js_btn_hideswitch', (e) => {
-  const $elm = e.target;
-  if ($elm.classList.contains('weui_btn_disabled')) {
-    return false;
-  }
-  $elm.classList.add('weui_btn_disabled');
-  window.vConsole.hideSwitch();
-  let count = 6;
-  const cb = () => {
-    count--;
-    if (count == 0) {
-      window.vConsole.showSwitch();
-      $elm.classList.remove('weui_btn_disabled');
-      $elm.innerHTML = '隐藏按钮';
-      clearInterval(timer);
-      return;
-    }
-    $elm.innerHTML = '隐藏按钮(' + count + ')';
-  }
-  cb();
-  let timer = setInterval(cb, 1000);
-});
-BindTap('.js_btn_destroy', (e) => {
-  const $elm = e.target;
-  if ($elm.classList.contains('weui_btn_disabled')) {
-    return false;
-  }
-  DOMs('.weui_btn').forEach(($elm) => {
-    $elm.classList.add('weui_btn_disabled');
-  });
-  window.vConsole.destroy();
-  $elm.innerHTML = '刷新页面以重载vConsole';
-});
 
 // 用于页面内展示顶部tips
 let tipsTimer;
@@ -184,6 +124,178 @@ const showTips = () => {
   tipsTimer = setTimeout(() => {
     DOM('#js_tips').style.display = 'none';
   }, 1500);
+}
+
+// make a prototype chain
+class FooBaseBaseClass {
+
+}
+class FooBaseClass extends FooBaseBaseClass {
+  constructor() {
+    super();
+    this.name = 'base';
+  }
+}
+class FooClass extends FooBaseClass {
+  constructor() {
+    super();
+    this.bar = 'foo';
+  }
+}
+
+
+function logTypes() {
+  console.log('console.log()');
+  console.info('console.info()');
+  console.debug('console.debug()');
+  console.warn('console.warn()');
+  console.error('console.error()');
+  showTips();
+}
+
+function normalObject() {
+  const obj = {
+    number: 233,
+    string: 'Hi you!\nFoo\t<b>bar!!</b>',
+    boolean: true,
+    symbolValue: Symbol('foo'),
+    bigint: 98979695949n,
+    obj: {foo: 'bar'},
+    array: [8, 7, 6],
+    undefined: undefined,
+    func: function foo(a) { alert('b'); },
+    class: FooClass,
+    classInstance: new FooClass(),
+  };
+  obj[Symbol('symbolKey')] = 'The key is a symbol.';
+  console.log('An object:', obj);
+  // console.log(obj.classInstance);
+  // console.log(obj.classInstance.__proto__);
+  // console.log(Object.getPrototypeOf(obj.classInstance));
+  showTips();
+}
+
+function allDataTypes(aa, bb, cc) {
+  console.log('String:', 'The first line;\nThe second line.', '<b>A HTML tag line.</b>');
+  console.log('Number:', 65535);
+  console.log('BigInt:', 99987654321n);
+  console.log('Boolean:', true, false);
+  console.log('Null:', null);
+  console.log('Undefined:', undefined);
+  console.log('Symbol:', Symbol('Foo'));
+  console.log('Array:', [0,1,2,3,4,5,6,7,8,9,10,11]);
+  console.log('Object:', {'foo': 'bar'});
+  console.log('Function:', allDataTypes);
+  console.log('Class:', FooClass);
+  console.log('ClassInstance:', new FooClass);
+  showTips();
+}
+
+function windowError() {
+  showTips();
+  console.log(new Error('Hello Error!'));
+  a.b = 1;
+}
+
+function getAjax() {
+  const url = './success.json?method=xhrGet&id=' + Math.random() + '&<xss0>';
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url);
+  xhr.setRequestHeader('custom-header', 'foobar');
+  xhr.send();
+  xhr.onload = () => {
+    console.log('get XHR Response:', JSON.parse(xhr.response));
+  };
+  xhr.onerror = () => {
+    console.log('get XHR Error');
+  };
+  showTips();
+}
+
+function optionsXHR() {
+  const url = './success.json?method=optionsXHR&s=500&id=' + Math.random() + '&<xss0>';
+  const xhr = new XMLHttpRequest();
+  xhr.open('OPTIONS', url);
+  xhr.setRequestHeader('custom-header', 'foobar');
+  xhr.send();
+  xhr.onload = () => {
+    console.log('optionsXHR Response:', xhr.response);
+  };
+  xhr.onerror = () => {
+    console.log('optionsXHR Error');
+  };
+  showTips();
+}
+
+function postFetch() {
+  window.fetch('./success.json?method=fetchPost&<xss2>x=<xss2>', {
+    method: 'POST',
+    body: { foo: 'bar', id: Math.random(), type: 'fetch' },
+    // body: new Blob([new ArrayBuffer(233)], { type: 'image/png' }),
+    headers: {
+      'custom-header': 'foobar',
+      // 'content-type': 'application/json'
+      // 'content-type': 'application/x-www-form-urlencoded'
+      'content-type': 'multipart/form-data',
+      'xss': '<xss1> XSS Attack!'
+    },
+  }).then((data) => {
+    return data.json();
+  }).then((data) => {
+    console.log('post Fetch Response:', data);
+  }).catch((error) => {
+    console.error('post Fetch Error:', error);
+  });
+  showTips();
+}
+
+function sendBeacon() {
+  console.info('sendBeacon() Start');
+  window.navigator.sendBeacon('./success.json?method=beacon', JSON.stringify({
+    foo: 'bar',
+    id: Math.random(),
+    type: 'sendBeacon'
+  }));
+  showTips();
+}
+
+function changeTheme(theme) {
+  window.vConsole.setOption('theme', theme);
+  console.log('Current Theme:', theme || 'auto');
+}
+
+function toggleVConsole() {
+  window.vConsole.show();
+  setTimeout(() => {
+    window.vConsole.hide();
+  }, 1000);
+  showTips();
+}
+
+let showSwitch = true;
+function toggleSwitch() {
+  showSwitch = !showSwitch;
+  showSwitch ? window.vConsole.showSwitch() : window.vConsole.hideSwitch();
+  console.info('vConsole switch is show:', showSwitch);
+  showTips();
+}
+
+function switchPosition() {
+  const x = 30;
+  const y = x;
+  vConsole.setSwitchPosition(x, y);
+  console.info('vConsole switch position:', x, y);
+  showTips();
+}
+
+function destroy() {
+  window.vConsole.destroy();
+  console.log('vConsole is destroyed.');
+  DOM('#btn_destroy').innerHTML = 'Destroyed. Reload page to restart.'
+  DOMs('.weui_btn').forEach((elm) => {
+    elm.classList.add('weui_btn_disabled');
+  });
+  showTips();
 }
 
 </script>
